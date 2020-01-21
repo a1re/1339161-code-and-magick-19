@@ -1,7 +1,7 @@
 # Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
 
 * Студент: [Юрий](https://up.htmlacademy.ru/javascript/19/user/1339161).
-* Наставник: `Неизвестно`.
+* Наставник: [Асет Актай](https://htmlacademy.ru/profile/id1315931).
 
 ---
 
