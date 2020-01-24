@@ -15,7 +15,7 @@ var WINDOW_HEADER_TITLE = 'Ура вы победили!';
 var WINDOW_HEADER_SUBLINE = 'Список результатов:';
 
 var TEXT_FONT = '16px PT Mono';
-var TEXT_COLOR = 'rgb(0, 0, 0)';
+var TEXT_COLOR = 'rgb(0, 0, 0, 0.7)';
 var TEXT_LINE_HEIGHT = 20;
 var TEXT_BOTTOM_MARGIN = 5;
 
@@ -27,7 +27,7 @@ var CHART_BAR_INDENT = 50;
 var CHART_BAR_HSL_HUE = 235;
 var CHART_BAR_HSL_LIGHTNESS = 50;
 var CHART_USER_ID = 'Вы';
-var CHART_USER_COLOR = 'rgb(255, 0, 0)';
+var CHART_USER_COLOR = 'rgb(255, 0, 0, 1)';
 
 window.renderStatistics = function (ctx, names, times) {
   ctx.fillStyle = WINDOW_SHADOW_COLOR;
