@@ -26,6 +26,7 @@
   var setupWindow = window.dialog('.setup', 'hidden');
   setupWindow.setOpenTrigger('.setup-open-icon');
   setupWindow.setCloseTrigger('.setup-close');
+  setupWindow.makeDraggable('.upload');
 
   userNameInput.addEventListener('focus', function () {
     document.removeEventListener('keydown', setupWindow.closeByEscHandler);
