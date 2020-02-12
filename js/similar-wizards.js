@@ -32,12 +32,9 @@ window.similarWizards = (function () {
 
   var show = function (wizardsList) {
     var blockForWizards = document.createDocumentFragment();
-    for (var j = 0; j < SIMILAR_WIZARDS_NUMBER; j++) {
-      if (wizardsList[j]) {
-        blockForWizards.appendChild(createWizardElement(wizardsList[j]));
-      } else {
-        blockForWizards.appendChild(createAnonymousWizard());
-      }
+    var randomWizards = window.util.tossArray(SIMILAR_WIZARDS_NUMBER, wizardsList);
+    for (var j = 0; j < randomWizards.length; j++) {
+      blockForWizards.appendChild(createWizardElement(randomWizards[j]));
     }
     document.querySelector('.setup-similar-list').appendChild(blockForWizards);
     document.querySelector('.setup-similar').classList.remove('hidden');
