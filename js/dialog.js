@@ -109,7 +109,8 @@
       setOpenTrigger: setOpenTrigger,
       setCloseTrigger: setCloseTrigger,
       makeDraggable: makeDraggable,
-      closeByEscHandler: closeByEscHandler
+      closeByEscHandler: closeByEscHandler,
+      close: close
     };
   };
 })();

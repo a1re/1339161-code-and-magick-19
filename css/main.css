@@ -1019,3 +1019,20 @@ input[type=radio]:checked + .review-mark-label
 
     opacity: 0;
 }
+
+.loading {
+    animation: loadingAnimation 3s infinite alternate;
+    background: linear-gradient(to right, #0e9839 0%, #1cb344 100%);
+    background-position: 0 0;
+    opacity: .5;
+}
+
+.error {
+    background: red;
+}
+
+@keyframes loadingAnimation {
+  100% {
+    background-position: 150px 0;
+  }
+}
