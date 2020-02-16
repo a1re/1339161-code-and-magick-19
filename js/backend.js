@@ -1,14 +1,14 @@
 'use strict';
 
 window.backend = (function () {
-  var LOAD_URL = '//js.dump.academy/code-and-magick/data?callback=similarWizards';
+  var LOAD_URL = '//js.dump.academy/code-and-magick/data?callback=makeWizards';
   var SAVE_URL = '//js.dump.academy/code-and-magick';
   var SIMILAR_WIZARDS_ERROR = 'Вы уникальный маг, похожих не нашлось';
   var XHR_TIMEOUT_IN_MS = 10;
   var SAVE_FORM_ERROR = 'Ошибка. Перезагрузите страницу';
 
   var load = function (loadHandler, errorHandler) {
-    window.similarWizards = function (data) {
+    window.makeWizards = function (data) {
       loadHandler(data);
     };
 
