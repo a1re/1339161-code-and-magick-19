@@ -27,6 +27,10 @@
     colorInput.value = newColor;
   };
 
+  var updateSimilarWizards = window.util.debounce(function () {
+    window.similarWizards.show(coatColorInput.value, eyesColorInput.value);
+  });
+
   var setupSubmitHandler = function (evt) {
     evt.preventDefault();
     var data = new FormData(document.querySelector('.setup-wizard-form'));
@@ -50,7 +54,7 @@
   setupWindow.setOpenTrigger('.setup-open-icon');
   setupWindow.setCloseTrigger('.setup-close');
   setupWindow.makeDraggable('.upload');
-  window.backend.load(window.similarWizards.show, window.similarWizards.showAnonymous);
+  //  window.backend.load(window.similarWizards.show, window.similarWizards.showAnonymous);
 
   userNameInput.addEventListener('focus', function () {
     document.removeEventListener('keydown', setupWindow.closeByEscHandler);
@@ -62,10 +66,12 @@
 
   wizardCoat.addEventListener('click', function () {
     tossColorElement(wizardCoat, COAT_COLORS, coatColorInput);
+    updateSimilarWizards();
   });
 
   wizardEyes.addEventListener('click', function () {
     tossColorElement(wizardEyes, EYES_COLORS, eyesColorInput);
+    updateSimilarWizards();
   });
 
   fireball.addEventListener('click', function () {
@@ -73,6 +79,8 @@
   });
 
   setupForm.addEventListener('submit', setupSubmitHandler);
+
+  updateSimilarWizards();
 
   window.setup = {
     COAT_COLORS: COAT_COLORS,
