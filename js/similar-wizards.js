@@ -5,6 +5,10 @@ window.similarWizards = (function () {
   var ANONYMOUS_WIZARD_NAME = '';
   var ANONYMOUS_WIZARD_COAT_COLOR = 'black';
   var ANONYMOUS_WIZARD_EYES_COLOR = 'black';
+  var COAT_SIMILARITY_POINTS = 2;
+  var EYES_SIMILARITY_POINTS = 1;
+
+  var allWizards = [];
 
   var createWizardElement = function (wizardDetails) {
     var similarWizardTemplate = document.querySelector('#similar-wizard-template')
@@ -30,14 +34,59 @@ window.similarWizards = (function () {
     return wizardElement;
   };
 
-  var show = function (wizardsList) {
-    var blockForWizards = document.createDocumentFragment();
-    var randomWizards = window.util.tossArray(SIMILAR_WIZARDS_NUMBER, wizardsList);
-    for (var j = 0; j < randomWizards.length; j++) {
-      blockForWizards.appendChild(createWizardElement(randomWizards[j]));
+  //   var show = function (wizardsList) {
+  //     var blockForWizards = document.createDocumentFragment();
+  //     var randomWizards = window.util.tossArray(SIMILAR_WIZARDS_NUMBER, wizardsList);
+  //     for (var j = 0; j < randomWizards.length; j++) {
+  //       blockForWizards.appendChild(createWizardElement(randomWizards[j]));
+  //     }
+  //     document.querySelector('.setup-similar-list').appendChild(blockForWizards);
+  //     document.querySelector('.setup-similar').classList.remove('hidden');
+  //   };
+
+  var load = function () {
+    window.backend.load(function (wizardsList) {
+      allWizards = wizardsList;
+      document.querySelector('.setup-similar').classList.remove('hidden');
+    }, showAnonymous);
+  };
+
+  var rateSimilarity = function (comparedCoat, comparedEyes) {
+    var ratedWizards = allWizards.map(function (wizard) {
+      wizard.rate = 0;
+      if (wizard.colorCoat === comparedCoat) {
+        wizard.rate += COAT_SIMILARITY_POINTS;
+      }
+      if (wizard.colorEyes === comparedEyes) {
+        wizard.rate += EYES_SIMILARITY_POINTS;
+      }
+      return wizard;
+    });
+
+    ratedWizards.sort(function (first, second) {
+      if (first.rate < second.rate) {
+        return 1;
+      } else if (first.rate > second.rate) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
+    return ratedWizards;
+  };
+
+  var show = function (coatColor, eyesColor) {
+    var wizards = rateSimilarity(coatColor, eyesColor).slice(0, SIMILAR_WIZARDS_NUMBER);
+    var oldWizards = document.querySelector('.setup-similar-list');
+    while (oldWizards.firstChild) {
+      oldWizards.removeChild(oldWizards.firstChild);
     }
+    var blockForWizards = document.createDocumentFragment();
+    wizards.forEach(function (wizard) {
+      blockForWizards.appendChild(createWizardElement(wizard));
+    });
     document.querySelector('.setup-similar-list').appendChild(blockForWizards);
-    document.querySelector('.setup-similar').classList.remove('hidden');
   };
 
   var showAnonymous = function (message) {
@@ -50,8 +99,9 @@ window.similarWizards = (function () {
     document.querySelector('.setup-similar-title').textContent = message;
   };
 
+  load();
+
   return {
-    show: show,
-    showAnonymous: showAnonymous
+    show: show
   };
 })();

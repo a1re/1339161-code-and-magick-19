@@ -3,6 +3,7 @@
 window.util = (function () {
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
+  var DEBOUNCE_INTERVAL_IN_MS = 500;
 
   var getNaturalRandom = function (min, max) {
     var randomInt = min + Math.random() * (max + 1 - min);
@@ -31,6 +32,22 @@ window.util = (function () {
     return tossedArray;
   };
 
+  var debounce = function (callback) {
+    var lastTimout = null;
+
+    return function () {
+      var params = arguments;
+
+      if (lastTimout) {
+        window.clearTimeout(lastTimout);
+      }
+
+      lastTimout = window.setTimeout(function () {
+        callback.apply(null, params);
+      }, DEBOUNCE_INTERVAL_IN_MS);
+    };
+  };
+
   return {
     isEscEvent: function (evt, action) {
       if (evt.keyCode === ESC_KEYCODE) {
@@ -44,6 +61,7 @@ window.util = (function () {
     },
     getNaturalRandom: getNaturalRandom,
     getRandomValueFromArray: getRandomValueFromArray,
-    tossArray: tossArray
+    tossArray: tossArray,
+    debounce: debounce
   };
 })();
