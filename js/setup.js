@@ -54,7 +54,6 @@
   setupWindow.setOpenTrigger('.setup-open-icon');
   setupWindow.setCloseTrigger('.setup-close');
   setupWindow.makeDraggable('.upload');
-  //  window.backend.load(window.similarWizards.show, window.similarWizards.showAnonymous);
 
   userNameInput.addEventListener('focus', function () {
     document.removeEventListener('keydown', setupWindow.closeByEscHandler);
